@@ -33,13 +33,26 @@ namespace CodeReview
 
         private void btnSure_Click(object sender, EventArgs e)
         {
-            recordModel.Engineer = txtFixer.Text;
-            recordModel.PlanCloseDate = DateTime.Parse(dateFixTime.Text);
-            recordModel.Question = txtQuestion.Text;
-            recordModel.Suggestion = txtSuggest.Text;
+            try
+            {
+                recordModel.Engineer = txtFixer.Text;
+                recordModel.PlanCloseDate = DateTime.Parse(dateFixTime.Text);
+                recordModel.Question = txtQuestion.Text;
+                recordModel.Suggestion = txtSuggest.Text;
 
-            Biz.ISaveReview saver = Biz.SaverFactory.GetSaver();
-            saver.Save(recordModel);
+                Biz.ISaveReview saver = Biz.SaverFactory.GetSaver();
+                saver.Save(recordModel);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            this.Close();
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
         /// <summary>
@@ -73,6 +86,5 @@ namespace CodeReview
 
             }
         }
-
     }
 }

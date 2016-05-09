@@ -35,7 +35,7 @@ namespace CodeReview.Biz
             sb.Append(System.Environment.NewLine);
 
             string fileName = "CodeReview_" + DateTime.Now.ToString("yyyy-MM-dd") + ".txt";
-            string fullName = "E:\\temp\\" + fileName;
+            string fullName = "D:\\CodeReview\\" + fileName;
             if (!System.IO.File.Exists(fullName))
             {
                 System.IO.File.Create(fullName).Close();
