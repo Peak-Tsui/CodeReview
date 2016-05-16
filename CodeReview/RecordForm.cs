@@ -65,7 +65,7 @@ namespace CodeReview
             {
                 ProjectItem projectItem = _applicationObject.ActiveDocument.ProjectItem;
                 FileCodeModel fileCodeModel = projectItem.FileCodeModel;
-                if (fileCodeModel.Language == CodeModelLanguageConstants.vsCMLanguageCSharp)
+                if (fileCodeModel != null && fileCodeModel.Language == CodeModelLanguageConstants.vsCMLanguageCSharp)
 
                 {
                     EnvDTE.TextSelection txtSelection = _applicationObject.ActiveDocument.Selection as EnvDTE.TextSelection;
@@ -79,11 +79,22 @@ namespace CodeReview
                     recordModel.ProjectName = _applicationObject.ActiveWindow.Project.Name;
                     recordModel.FileFullPath = _applicationObject.ActiveDocument.FullName;
                 }
+                else //
+                {
+                    EnvDTE.TextSelection txtSelection = _applicationObject.ActiveDocument.Selection as EnvDTE.TextSelection;
+                    txtMethodName.Text = "";
+
+                    recordModel.CodeLineNumber = txtSelection.TopLine;
+                    recordModel.SelectedCode = txtCodeContent.Text = txtSelection.Text;
+                    recordModel.ProjectName = _applicationObject.ActiveWindow.Project.Name;
+                    recordModel.FileFullPath = _applicationObject.ActiveDocument.FullName;
+
+                }
                 InitSuccess = true;
             }
             catch (Exception ex)
             {
-
+                InitSuccess = false;
             }
         }
     }
